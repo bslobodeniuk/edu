@@ -1,0 +1,12 @@
+kubectl set image deploy demo app=bslobodenuk/app:v0.0.2
+kubectl port-forward deploy/demo 8080
+kubectl get deployment demo -o yaml > demo-deployment.yaml
+kubectl create deploy demo --image bslobodenuk/app:v0.0.1
+docker push bslobodenuk/app:v0.0.1
+docker tag 4de2b11b356fb212 bslobodenuk/app:v0.0.1
+docker login
+docker run -p 8080:8080 sha256:4de2b11b356fb212e633c0b908cde967fe206932e97706421c8282cfeab11869
+docker build .
+go mod init demo
+cd src
+go build -o bin/app src/main.go
