@@ -1,4 +1,8 @@
 alias k=kubectl
+k completion -h
+source <(kubectl completion zsh)
+source <(kubectl completion bash | sed s/kubectl/k/g)
+
 
 k create deploy demo --image ghcr.io/bslobodeniuk/kbot:v1.0.0-17aeb78-arm64
 k create deploy demo --image bslobodenuk/demo:v.0.0.1
