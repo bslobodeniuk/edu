@@ -24,3 +24,32 @@ k config get-contexts #get all contexts
 #Current context set what context will be used by default when you run kubectl commands.
 k config set-context --current --namespace=dev #set namespace for current context.
 k config use-context dev #switch context
+
+#https://kubernetes.io/docs/reference/kubectl/cheatsheet/
+k get pods --all-namespaces #get all pods in all namespaces
+k run nginx --image nginx --restart=Never --dry-run=client -o yaml |tee  > nginx-pod.yaml #create pod manifest
+k create deploy nginx --image nginx --dry-run=client -o yaml |tee  > nginx-deploy.yaml #create deployment manifest
+
+k get po --show-labels #get pods with labels
+
+k api-resources #get all resources
+k api-resources --namespaced=false #get all resources that are not namespaced
+k api-resources --namespaced=true #get all resources that are namespaced
+
+k get namespaces -v 7 #get namespaces with verbose output
+k get ns -v 7 #get namespaces with verbose output
+k get ns -v 8 #get namespaces with verbose output
+k proxy #start proxy for kubernetes api to access it from browser
+
+k get --raw='/readyz?verbose' #get health of cluster
+
+k get pods -o wide --show-labels #get pods with wide output
+k get rs -o wide --show-labels #get replicasets with wide output
+k get deploy -o wide --show-labels #get deployments with wide output
+k get po -lapp=nginx -Lapp #get pods with label app=nginx and show label app
+
+k delete po nginx --grace-period=0 --force #delete pod nginx with force
+
+k apply -f - <<EOF #create pod from stdin
+k apply -f https://raw.githubusercontent.com/deploy.yaml #create pod from url
+
